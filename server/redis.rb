@@ -12,7 +12,7 @@ redis.ping
 require 'json'
 
 # définir une valeur
-redis.set "level:1", {
+redis.set "level", {
     "id": 1,
     "name": "diogo",
     "difficulty": "easy",
@@ -41,3 +41,52 @@ redis.set "level:1", {
 # récupérer la valeur
 JSON.parse(redis.get("level"))
 
+# definition d'un level par id
+redis.hmset('level:1', :name, 'level 01', :difficulty, 'easy', 
+:music, {
+    "id": 2,
+    "name": "tryhard",
+    "duration": 120000
+}.to_json, 
+:sequence, [
+    {
+        "time": 1200, 
+        "key": "z",
+        "duration": 0
+    }
+].to_json, 
+:textures, {
+    "tree": "normal", 
+    "platform": "normal"
+}.to_json,
+:creator, {
+    "id": 1,
+    "name": "diogo"
+}.to_json,
+:hardcore, "false")
+
+redis.hmset('level:2', :name, 'level 02', :difficulty, 'easy', 
+:music, {
+    "id": 2,
+    "name": "tryhard",
+    "duration": 120000
+}.to_json, 
+:sequence, [
+    {
+        "time": 1200, 
+        "key": "z",
+        "duration": 0
+    }
+].to_json, 
+:textures, {
+    "tree": "normal", 
+    "platform": "normal"
+}.to_json,
+:creator, {
+    "id": 1,
+    "name": "diogo"
+}.to_json,
+:hardcore, "false")
+
+redis.hget('level:1', :name)
+redis.hget('level:2', :name)
