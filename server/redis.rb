@@ -86,7 +86,11 @@ redis.hmset('level:2', :name, 'level 02', :difficulty, 'easy',
     "id": 1,
     "name": "diogo"
 }.to_json,
-:hardcore, "false")
+:hardcore, "true")
 
+# get 1 param
 redis.hget('level:1', :name)
-redis.hget('level:2', :name)
+# get multi param
+redis.hmget('level:1', :name, :hardcore, :difficulty)
+redis.hget('level:2', :name) 
+redis.hmget('level:2', :name, :hardcore, :difficulty)
