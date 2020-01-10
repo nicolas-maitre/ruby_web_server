@@ -94,3 +94,42 @@ redis.hget('level:1', :name)
 redis.hmget('level:1', :name, :hardcore, :difficulty)
 redis.hget('level:2', :name) 
 redis.hmget('level:2', :name, :hardcore, :difficulty)
+
+
+puts "-----------------------------------------"
+
+puts "
+----
+sadd
+----
+"
+puts redis.sadd('groceries:dairies', ['milk', 'cheese', 'yogourt']);
+puts redis.sadd('groceries:seafood', ['salmon', 'calamari', 'lobster']);
+puts redis.sadd('groceries:fruits', ['apples', 'grapes', 'pears', 'orange']);
+puts "
+----
+smembers
+----
+"
+# print set to console
+puts redis.smembers('groceries:fruits');
+puts "
+----
+pop
+----
+"
+# remove an item
+puts redis.spop('groceries:fruits');
+puts "
+----
+add
+----
+"
+puts redis.sadd('groceries:fruits', ['apples', 'grapes', 'pears', 'orange']);
+puts "
+----
+members
+----
+"
+# print to console
+puts redis.smembers('groceries:fruits');

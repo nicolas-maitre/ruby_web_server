@@ -10,10 +10,10 @@ puts $redis.ping
 
 # params : get values with an array of attributes
 def selectValue(table,id,params)
-    return [] unless params.class == Array && id.class == Integer
+    return ["error"] unless params.class == Array && id.class == Integer
     
     for i in params do
-        return [] unless i.class == String
+        return ["error"] unless i.class == String
     end
 
     $redis.hmget("#{table}:#{id}", "id")
@@ -30,7 +30,7 @@ end
 # params : first value name of attribut and next is the value
 # exemple : ["id", "name"]
 def insert(table,id,params)
-    return [] unless params.class == Array 
+    return ["error"] unless params.class == Array 
 
     $redis.hmset("#{table}:#{id}" , params)
 end
@@ -42,3 +42,4 @@ puts selectAll("a","5") # doesn't receive
 
 puts selectValue("a","5","id")#doesn't work zone
 puts selectValue("a",3,["id"])
+
